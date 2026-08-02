@@ -1,0 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap");
+@import "tailwindcss";
+
+/*
+  Design tokens — seção 2 do requisitos: nada de cor/fonte/espaçamento
+  hardcoded nos componentes. Trocar os valores aqui muda o site inteiro.
+  Paleta atual é um ponto de partida cottagecore (sálvia, rosa empoeirado,
+  terracota sobre creme) — ajustar na etapa de UI final.
+*/
+@theme {
+  --color-sage-50: #f4f6f1;
+  --color-sage-100: #e4e9dc;
+  --color-sage-300: #b7c4a3;
+  --color-sage-500: #7f9268;
+  --color-sage-700: #5c6b4a;
+  --color-sage-900: #333d28;
+
+  --color-rose-50: #fbf1ee;
+  --color-rose-100: #f4dcd6;
+  --color-rose-300: #e5aa9d;
+  --color-rose-500: #cf7c6a;
+  --color-rose-700: #a6564a;
+
+  --color-clay-50: #fbf0ea;
+  --color-clay-300: #e3ab88;
+  --color-clay-500: #c17a4e;
+  --color-clay-700: #93502a;
+
+  --color-cream: #faf6ee;
+  --color-linen: #fffaf1;
+  --color-ink: #3a3229;
+  --color-ink-soft: #756a5a;
+  --color-line: #e7ddca;
+
+  --font-display: "Fraunces", "Iowan Old Style", "Palatino Linotype", serif;
+  --font-body: "Nunito Sans", system-ui, "Segoe UI", sans-serif;
+
+  --radius-token-sm: 0.5rem;
+  --radius-token-md: 1rem;
+  --radius-token-lg: 1.75rem;
+
+  --shadow-token-soft: 0 8px 24px -12px rgba(58, 50, 41, 0.25);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
