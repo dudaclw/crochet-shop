@@ -37,7 +37,7 @@ export function ProductCard({ produto }: { produto: Produto }) {
         {produto.tipo === "sob_encomenda" && produto.prazoProducao && (
           <p className="text-sm text-ink-soft">Prazo: {produto.prazoProducao}</p>
         )}
-        <span className="mt-2 text-sm font-semibold text-sage-700 group-hover:underline">
+        <span className="mt-2 text-sm font-semibold text-wine-700 group-hover:underline">
           Ver detalhes
         </span>
       </div>

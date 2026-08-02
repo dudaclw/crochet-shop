@@ -8,12 +8,19 @@
   terracota sobre creme) — ajustar na etapa de UI final.
 */
 @theme {
-  --color-sage-50: #f4f6f1;
-  --color-sage-100: #e4e9dc;
-  --color-sage-300: #b7c4a3;
-  --color-sage-500: #7f9268;
-  --color-sage-700: #5c6b4a;
-  --color-sage-900: #333d28;
+  --color-pistachio-50: #f2f6ea;
+  --color-pistachio-100: #e2edcd;
+  --color-pistachio-300: #c1d99b;
+  --color-pistachio-500: #93bb5e;
+  --color-pistachio-700: #5e7c34;
+  --color-pistachio-900: #38491f;
+
+  --color-wine-50: #f6ecec;
+  --color-wine-100: #ead4d5;
+  --color-wine-300: #b97c7f;
+  --color-wine-500: #833c40;
+  --color-wine-700: #5c1f24;
+  --color-wine-900: #3a1216;
 
   --color-rose-50: #fbf1ee;
   --color-rose-100: #f4dcd6;

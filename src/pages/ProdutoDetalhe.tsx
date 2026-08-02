@@ -34,7 +34,7 @@ export function ProdutoDetalhe() {
         <div className="flex flex-col gap-4 md:flex-1">
           <Link
             to="/catalogo"
-            className="w-fit text-sm font-semibold text-ink-soft hover:text-sage-700"
+            className="w-fit text-sm font-semibold text-ink-soft hover:text-wine-700"
           >
             ← Voltar ao catálogo
           </Link>

@@ -16,10 +16,10 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col gap-2 text-sm text-ink-soft">
-          <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="hover:text-sage-700">
+          <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="hover:text-wine-700">
             WhatsApp
           </a>
-          <a href={instagramLink} target="_blank" rel="noopener noreferrer" className="hover:text-sage-700">
+          <a href={instagramLink} target="_blank" rel="noopener noreferrer" className="hover:text-wine-700">
             Instagram {config.instagramHandle}
           </a>
           <span>{config.horarioAtendimento}</span>

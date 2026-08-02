@@ -20,7 +20,7 @@ export function Home() {
           </p>
           <Link
             to="/catalogo"
-            className="inline-flex items-center justify-center rounded-token-md bg-sage-700 px-7 py-3.5 font-semibold text-white shadow-token-soft transition hover:bg-sage-900"
+            className="inline-flex items-center justify-center rounded-token-md bg-wine-700 px-7 py-3.5 font-semibold text-white shadow-token-soft transition hover:bg-wine-900"
           >
             Ver o que tem no ateliê
           </Link>
@@ -46,7 +46,7 @@ export function Home() {
             <ProductCard key={produto.id} produto={produto} />
           ))}
         </div>
-        <Link to="/catalogo" className="font-semibold text-sage-700 hover:underline">
+        <Link to="/catalogo" className="font-semibold text-wine-700 hover:underline">
           Ver catálogo completo →
         </Link>
       </section>

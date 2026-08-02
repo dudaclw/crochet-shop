@@ -9,8 +9,8 @@ const links = [
 ];
 
 const linkClasses = ({ isActive }: { isActive: boolean }) =>
-  `text-base transition hover:text-sage-700 ${
-    isActive ? "font-semibold text-sage-700" : "text-ink"
+  `text-base transition hover:text-wine-700 ${
+    isActive ? "font-semibold text-wine-700" : "text-ink"
   }`;
 
 export function Header() {
@@ -66,7 +66,7 @@ export function Header() {
               onClick={() => setMenuAberto(false)}
               className={({ isActive }) =>
                 `rounded-token-sm px-3 py-2.5 text-base ${
-                  isActive ? "bg-sage-100 font-semibold text-sage-700" : "text-ink"
+                  isActive ? "bg-wine-100 font-semibold text-wine-700" : "text-ink"
                 }`
               }
             >

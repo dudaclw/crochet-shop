@@ -19,7 +19,7 @@ export function WhatsAppButton({
       href={linkWhatsappProduto(produto)}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex items-center justify-center gap-2 rounded-token-md bg-sage-700 px-6 py-3 text-center font-semibold text-white shadow-token-soft transition hover:bg-sage-900 ${className}`}
+      className={`inline-flex items-center justify-center gap-2 rounded-token-md bg-wine-700 px-6 py-3 text-center font-semibold text-white shadow-token-soft transition hover:bg-wine-900 ${className}`}
     >
       {rotulos[produto.tipo]}
     </a>

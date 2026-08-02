@@ -33,8 +33,8 @@ export function Catalogo() {
             aria-pressed={filtro === item.valor}
             className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
               filtro === item.valor
-                ? "bg-sage-700 text-white"
-                : "bg-linen text-ink-soft hover:bg-sage-100"
+                ? "bg-wine-700 text-white"
+                : "bg-linen text-ink-soft hover:bg-wine-100"
             }`}
           >
             {item.rotulo}
