@@ -22,8 +22,8 @@ export function Sobre() {
         </p>
       </div>
 
-      <div className="w-full flex-1">
-        <PlaceholderImage src="/placeholders/sobre.svg" alt="Mia's Crochet" aspect="aspect-[4/5]" />
+      <div className="w-full max-w-[220px] md:max-w-[260px]">
+        <PlaceholderImage src="/placeholders/logo2.png" alt="Mia's Crochet" aspect="aspect-square" />
       </div>
     </div>
   );

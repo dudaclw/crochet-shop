@@ -12,7 +12,7 @@ export const config: ConfiguracaoGlobal = {
     `Oi! Tenho interesse em encomendar a peça "${nomeProduto}" — podemos combinar os detalhes?`,
   instagramHandle: "@ateliefiodeprosa",
   horarioAtendimento: "Segunda a sexta, das 9h às 18h",
-  logoPlaceholder: "/placeholders/logo-mia.png",
+  logoPlaceholder: "/placeholders/logo2.png",
   nomeAtelie: "Mia's Crochet",
   tagline: "Crochê feito à mão, com tempo e carinho",
 };
