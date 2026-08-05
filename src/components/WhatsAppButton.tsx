@@ -3,8 +3,8 @@ import { linkWhatsappProduto } from "../lib/whatsapp";
 
 /** RF-18: o texto do botão varia conforme pronta_entrega ou sob_encomenda */
 const rotulos: Record<Produto["tipo"], string> = {
-  pronta_entrega: "Quero esse — falar no WhatsApp",
-  sob_encomenda: "Vamos combinar — falar no WhatsApp",
+  pronta_entrega: "Quero esse, chamar no Whatsapp!",
+  sob_encomenda: "Quero esse! Vamos combinar",
 };
 
 export function WhatsAppButton({

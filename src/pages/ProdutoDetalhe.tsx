@@ -56,8 +56,6 @@ export function ProdutoDetalhe() {
           </p>
           <p className="text-ink-soft">{produto.descricaoCurta}</p>
 
-          <BlocoInfo titulo="Materiais">{produto.materiais}</BlocoInfo>
-
           {ehSobEncomenda ? (
             <>
               {produto.personalizavelEm && (
