@@ -29,7 +29,7 @@ export function ProdutoDetalhe() {
   const ehSobEncomenda = produto.tipo === "sob_encomenda";
 
   return (
-    <div className="min-h-[calc(100svh-73px)] bg-cream md:py-10">
+    <div className="min-h-[calc(100svh-100px)] bg-cream md:py-10">
       <div className="mx-auto flex max-w-5xl flex-col gap-6 bg-cream px-5 py-6 md:flex-row md:gap-12 md:rounded-token-lg md:py-8 md:shadow-token-soft">
         <div className="flex flex-col gap-4 md:flex-1">
           <Link
