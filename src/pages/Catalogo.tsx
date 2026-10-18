@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ProductCard } from "../components/ProductCard";
-import { produtos } from "../data/produtos";
+import { useProdutos } from "../lib/useProdutos";
+import { config } from "../data/config";
 import type { TipoProduto } from "../types/product";
 
 type Filtro = "tudo" | TipoProduto;
@@ -12,13 +13,18 @@ const filtros: { valor: Filtro; rotulo: string }[] = [
 ];
 
 export function Catalogo() {
+  const { produtos } = useProdutos();
   const [filtro, setFiltro] = useState<Filtro>("tudo");
 
-  const produtosFiltrados =
-    filtro === "tudo" ? produtos : produtos.filter((produto) => produto.tipo === filtro);
+  if (!produtos) return null;
+
+  const produtosFiltrados = (
+    filtro === "tudo" ? produtos : produtos.filter((produto) => produto.tipo === filtro)
+  ).toSorted((a, b) => Number(!!a.vendido) - Number(!!b.vendido));
 
   return (
     <div className="mx-auto flex max-w-6xl flex-col gap-8 px-5 py-10">
+      <title>{`Catálogo — ${config.nomeAtelie}`}</title>
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl text-ink">Catálogo</h1>
         <p className="text-ink-soft">Dá uma olhada no que já tenho pronto e no que dá pra combinar.</p>

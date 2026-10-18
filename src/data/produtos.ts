@@ -110,7 +110,7 @@ export const produtos: Produto[] = [
     notaPreco: null,
     prazoProducao: null,
     personalizavelEm: null,
-    imagens: ["/produtos/amigurumi-gato-cachecol.jpeg"],
+    imagens: ["/produtos/amigurumi-gato-cachecol.webp"],
     descricaoCurta:
       "Gatinho preto em fio de veludo, com cachecol azul de tricô feito à mão. Uma peça só, pronta pra ganhar um novo lar.",
     materiais: "Fio de veludo (chenille), enchimento antialérgico",
@@ -126,7 +126,7 @@ export const produtos: Produto[] = [
     notaPreco: "buquê com 5 flores",
     prazoProducao: null,
     personalizavelEm: null,
-    imagens: ["/produtos/buque-de-tulipas-croche.jpeg"],
+    imagens: ["/produtos/buque-de-tulipas-croche.webp"],
     descricaoCurta:
       "Buquê de tulipas em crochê, hastes revestidas e laço de fita — não murcha nunca. Um presente diferente pra quem você gosta.",
     materiais: "Fio de algodão, hastes de arame revestido, fita de cetim",
@@ -142,7 +142,7 @@ export const produtos: Produto[] = [
     notaPreco: "kit com 2",
     prazoProducao: null,
     personalizavelEm: null,
-    imagens: ["/produtos/kit-panos-de-prato-xadrez.jpeg"],
+    imagens: ["/produtos/kit-panos-de-prato-xadrez.webp"],
     descricaoCurta:
       "Dupla de panos de prato em xadrez de crochê, um verde e um vinho, com barrado em concha. Deixam a cozinha mais aconchegante.",
     materiais: "Fio de algodão 100%, tons verde e vinho",
@@ -158,7 +158,7 @@ export const produtos: Produto[] = [
     notaPreco: null,
     prazoProducao: null,
     personalizavelEm: null,
-    imagens: ["/produtos/sousplat-rendado-flor.jpeg"],
+    imagens: ["/produtos/sousplat-rendado-flor.webp"],
     descricaoCurta:
       "Sousplat redondo em crochê branco, com barrado em relevo de florzinhas rosa. Dá um toque especial na mesa posta.",
     materiais: "Fio de algodão fio 8",
@@ -174,7 +174,7 @@ export const produtos: Produto[] = [
     notaPreco: null,
     prazoProducao: null,
     personalizavelEm: null,
-    imagens: ["/produtos/amigurumi-coelho-laco-preto.jpeg"],
+    imagens: ["/produtos/amigurumi-coelho-laco-preto.webp"],
     descricaoCurta:
       "Coelhinho de orelha caída em fio de veludo caramelo, olhos de botão e laço de cetim preto. Peça única, pronta entrega.",
     materiais: "Fio de veludo (chenille), botões, fita de cetim",

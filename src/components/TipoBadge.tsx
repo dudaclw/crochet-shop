@@ -10,7 +10,14 @@ const estilos: Record<TipoProduto, string> = {
   sob_encomenda: "bg-rose-100 text-rose-700",
 };
 
-export function TipoBadge({ tipo }: { tipo: TipoProduto }) {
+export function TipoBadge({ tipo, vendido }: { tipo: TipoProduto; vendido?: boolean }) {
+  if (vendido) {
+    return (
+      <span className="inline-flex w-fit items-center rounded-full bg-ink px-3 py-1 text-xs font-semibold tracking-wide text-white">
+        Vendida
+      </span>
+    );
+  }
   return (
     <span
       className={`inline-flex w-fit items-center rounded-full px-3 py-1 text-xs font-semibold tracking-wide ${estilos[tipo]}`}

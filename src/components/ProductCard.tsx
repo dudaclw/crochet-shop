@@ -19,10 +19,10 @@ export function ProductCard({ produto }: { produto: Produto }) {
           src={produto.imagens[0]}
           alt={produto.nome}
           aspect="aspect-[4/5]"
-          className="transition duration-300 group-hover:scale-[1.02]"
+          className={`transition duration-300 group-hover:scale-[1.02] ${produto.vendido ? "opacity-60 grayscale" : ""}`}
         />
         <div className="absolute left-3 top-3">
-          <TipoBadge tipo={produto.tipo} />
+          <TipoBadge tipo={produto.tipo} vendido={produto.vendido} />
         </div>
       </div>
 

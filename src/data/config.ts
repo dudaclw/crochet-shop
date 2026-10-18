@@ -5,14 +5,14 @@ import type { ConfiguracaoGlobal } from "../types/config";
  * de mensagem não devem ser hardcoded em botões individuais.
  */
 export const config: ConfiguracaoGlobal = {
-  whatsappNumero: "5511999999999",
+  whatsappNumero: "5545991080906",
   whatsappTemplateProntaEntrega: (nomeProduto) =>
     `Oi! Vi a peça "${nomeProduto}" no site e queria saber mais.`,
   whatsappTemplateSobEncomenda: (nomeProduto) =>
     `Oi! Tenho interesse em encomendar a peça "${nomeProduto}" — podemos combinar os detalhes?`,
-  instagramHandle: "@ateliefiodeprosa",
+  instagramHandle: "@crochet.by.miia",
   horarioAtendimento: "Segunda a sexta, das 9h às 18h",
-  logoPlaceholder: "/placeholders/logo2.png",
+  logoPlaceholder: "/placeholders/logo.webp",
   nomeAtelie: "Mia's Crochet",
   tagline: "Crochê feito à mão, com tempo e carinho",
 };

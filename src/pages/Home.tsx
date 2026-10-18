@@ -1,12 +1,15 @@
 import { Link } from "react-router-dom";
 import { ProductCard } from "../components/ProductCard";
-import { produtos } from "../data/produtos";
+import { useProdutos } from "../lib/useProdutos";
+import { config } from "../data/config";
 
 export function Home() {
-  const destaques = produtos.slice(0, 3);
+  const { produtos } = useProdutos();
+  const destaques = (produtos ?? []).filter((p) => !p.vendido).slice(0, 3);
 
   return (
     <div className="flex flex-col gap-20 pb-20">
+      <title>{`${config.nomeAtelie} — crochê feito à mão`}</title>
       {/*
         Ocupa quase a tela inteira pra dar a sensação de que tem mais
         conteúdo abaixo — reforçado pela seta de scroll. A altura desconta a

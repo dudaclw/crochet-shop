@@ -15,4 +15,6 @@ export interface Produto {
   materiais: string;
   tamanho: string | null;
   cuidados: string | null;
+  /** só pronta_entrega: peça única já vendida (fica no catálogo como "Vendida") */
+  vendido?: boolean;
 }
