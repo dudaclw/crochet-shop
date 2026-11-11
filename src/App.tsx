@@ -7,12 +7,8 @@ import { Catalogo } from "./pages/Catalogo";
 import { ProdutoDetalhe } from "./pages/ProdutoDetalhe";
 import { Sobre } from "./pages/Sobre";
 
-// Admin só existe em dev e em `npm run preview:admin`. Nas demais builds a
-// condição é constante e o chunk do painel nem chega a ser gerado.
-const Admin =
-  import.meta.env.DEV || import.meta.env.VITE_ADMIN === "true"
-    ? lazy(() => import("./admin/Admin"))
-    : null;
+// Carregado só ao abrir /admin: visitante da loja não baixa o código do painel.
+const Admin = lazy(() => import("./admin/Admin"));
 
 function Layout({ children }: { children: ReactNode }) {
   return (
@@ -60,16 +56,14 @@ function App() {
             </Layout>
           }
         />
-        {Admin && (
-          <Route
-            path="/admin/*"
-            element={
-              <Suspense fallback={null}>
-                <Admin />
-              </Suspense>
-            }
-          />
-        )}
+        <Route
+          path="/admin/*"
+          element={
+            <Suspense fallback={null}>
+              <Admin />
+            </Suspense>
+          }
+        />
         <Route
           path="*"
           element={

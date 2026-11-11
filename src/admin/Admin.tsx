@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link, Navigate, Outlet, Route, Routes, useNavigate } from "react-router-dom";
 import { authService } from "../lib/authService";
 import { FormProduto } from "./FormProduto";
@@ -6,7 +7,13 @@ import { Login } from "./Login";
 
 function RequireAdmin() {
   const navigate = useNavigate();
-  if (!authService.logado()) return <Navigate to="/admin/login" replace />;
+  const [admin, setAdmin] = useState<boolean | null>(null);
+  useEffect(() => {
+    authService.ehAdmin().then(setAdmin, () => setAdmin(false));
+    return authService.aoSair(() => setAdmin(false));
+  }, []);
+  if (admin === null) return null;
+  if (!admin) return <Navigate to="/admin/login" replace />;
 
   return (
     <>
@@ -21,8 +28,8 @@ function RequireAdmin() {
             </Link>
             <button
               type="button"
-              onClick={() => {
-                authService.logout();
+              onClick={async () => {
+                await authService.logout();
                 navigate("/admin/login");
               }}
               className="font-semibold hover:underline"

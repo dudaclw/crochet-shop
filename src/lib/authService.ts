@@ -1,25 +1,35 @@
-/**
- * Sessão MOCK só para validar o fluxo do admin. NÃO é segurança: tudo aqui
- * roda no navegador e vai para o bundle. A credencial abaixo é de demonstração
- * e o painel só existe em dev/preview local (ver ADMIN_ATIVO em App.tsx).
- * Com back-end: trocar login/logout/logado por chamadas reais.
- */
-const CHAVE = "admin-sessao";
-const DURACAO_MS = 2 * 60 * 60 * 1000;
-export const CREDENCIAL_DEMO = { usuario: "admin", senha: "demo123" };
+import { supabase } from "./supabase";
 
+/**
+ * Login real via Supabase Auth. Checar isso no navegador é só para a tela:
+ * quem bloqueia escrita de verdade é a RLS (`public.is_admin()` no schema).
+ */
 export const authService = {
-  async login(usuario: string, senha: string) {
-    if (usuario !== CREDENCIAL_DEMO.usuario || senha !== CREDENCIAL_DEMO.senha) return false;
-    sessionStorage.setItem(CHAVE, String(Date.now() + DURACAO_MS));
-    return true;
+  /** "ok" | "invalido" (e-mail/senha errados) | "rede" | "sem-permissao" (conta existe mas não é admin) */
+  async login(email: string, senha: string) {
+    const { error } = await supabase.auth.signInWithPassword({ email, password: senha });
+    if (error) return error.status === 400 ? ("invalido" as const) : ("rede" as const);
+    if (await this.ehAdmin()) return "ok" as const;
+    await supabase.auth.signOut();
+    return "sem-permissao" as const;
   },
 
   logout() {
-    sessionStorage.removeItem(CHAVE);
+    return supabase.auth.signOut();
   },
 
-  logado() {
-    return Number(sessionStorage.getItem(CHAVE)) > Date.now();
+  async ehAdmin() {
+    const { data: sessao } = await supabase.auth.getSession();
+    if (!sessao.session) return false;
+    const { data } = await supabase.rpc("is_admin");
+    return data === true;
+  },
+
+  /** chama `aoSair` quando a sessão acaba (logout em outra aba, token revogado) */
+  aoSair(aoSair: () => void) {
+    const { data } = supabase.auth.onAuthStateChange((evento) => {
+      if (evento === "SIGNED_OUT") aoSair();
+    });
+    return () => data.subscription.unsubscribe();
   },
 };

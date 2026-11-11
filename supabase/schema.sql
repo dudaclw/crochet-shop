@@ -39,10 +39,19 @@ drop policy if exists "admin escreve" on public.produtos;
 create policy "admin escreve" on public.produtos for all
   using (public.is_admin()) with check (public.is_admin());
 
--- Fotos: bucket público para leitura; upload/remoção só admin.
-insert into storage.buckets (id, name, public)
-values ('imagens', 'imagens', true)
-on conflict (id) do nothing;
+-- Fotos: bucket público para leitura por URL; upload/remoção só admin.
+-- Limite de 5 MB e só imagens, mesmo para admin (conta invadida não vira hospedagem de arquivo).
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('imagens', 'imagens', true, 5242880, array['image/jpeg', 'image/png', 'image/webp'])
+on conflict (id) do update set
+  public = excluded.public,
+  file_size_limit = excluded.file_size_limit,
+  allowed_mime_types = excluded.allowed_mime_types;
+
+-- Remover arquivo exige também SELECT no Storage. Só admin: visitante não lista o bucket.
+drop policy if exists "admin lista imagens" on storage.objects;
+create policy "admin lista imagens" on storage.objects for select
+  using (bucket_id = 'imagens' and public.is_admin());
 
 drop policy if exists "admin envia imagens" on storage.objects;
 create policy "admin envia imagens" on storage.objects for insert
@@ -52,5 +61,6 @@ drop policy if exists "admin remove imagens" on storage.objects;
 create policy "admin remove imagens" on storage.objects for delete
   using (bucket_id = 'imagens' and public.is_admin());
 
--- Depois de criar a usuária em Authentication > Users, rodar com o e-mail dela:
+-- Antes de publicar: Authentication > Sign In / Providers > desligar "Allow new users to sign up".
+-- Depois de criar a usuária em Authentication > Users (senha forte), rodar com o e-mail dela:
 -- insert into public.admins (user_id) select id from auth.users where email = 'EMAIL_DA_CLIENTE';

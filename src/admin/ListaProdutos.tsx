@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Carregando } from "../components/Carregando";
 import { TipoBadge } from "../components/TipoBadge";
 import { produtosRepository } from "../lib/produtosRepository";
 import { useProdutos } from "../lib/useProdutos";
@@ -6,19 +7,19 @@ import { useProdutos } from "../lib/useProdutos";
 const formatoPreco = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
 
 export function ListaProdutos() {
-  const { produtos, recarregar } = useProdutos();
+  const { produtos, erro, recarregar } = useProdutos();
 
   async function excluir(id: string, nome: string) {
-    if (!confirm(`Excluir "${nome}"?`)) return;
-    await produtosRepository.excluir(id);
+    if (!confirm(`Excluir "${nome}"? Isso apaga também as fotos e não dá pra desfazer.`)) return;
+    try {
+      await produtosRepository.excluir(id);
+    } catch {
+      alert("Não consegui excluir. Confira a internet ou saia e entre de novo.");
+    }
     recarregar();
   }
 
-  async function restaurar() {
-    if (!confirm("Descartar todas as edições e voltar ao catálogo original?")) return;
-    await produtosRepository.restaurar();
-    recarregar();
-  }
+  if (!produtos) return <Carregando erro={erro} tentarDeNovo={recarregar} />;
 
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-6 px-5 py-8">
@@ -33,7 +34,7 @@ export function ListaProdutos() {
       </div>
 
       <ul className="flex flex-col gap-3">
-        {produtos?.map((p) => (
+        {produtos.map((p) => (
           <li
             key={p.id}
             className="flex flex-col gap-3 rounded-token-md border border-line bg-linen p-3 sm:flex-row sm:items-center"
@@ -64,16 +65,8 @@ export function ListaProdutos() {
             </div>
           </li>
         ))}
-        {produtos?.length === 0 && <li className="text-ink-soft">Nenhum produto cadastrado.</li>}
+        {produtos.length === 0 && <li className="text-ink-soft">Nenhum produto cadastrado.</li>}
       </ul>
-
-      <button
-        type="button"
-        onClick={restaurar}
-        className="w-fit text-xs text-ink-soft underline hover:text-wine-700"
-      >
-        Restaurar catálogo original
-      </button>
     </div>
   );
 }

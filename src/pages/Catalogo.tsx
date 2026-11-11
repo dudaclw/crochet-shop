@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ProductCard } from "../components/ProductCard";
 import { useProdutos } from "../lib/useProdutos";
+import { Carregando } from "../components/Carregando";
 import { config } from "../data/config";
 import type { TipoProduto } from "../types/product";
 
@@ -13,10 +14,10 @@ const filtros: { valor: Filtro; rotulo: string }[] = [
 ];
 
 export function Catalogo() {
-  const { produtos } = useProdutos();
+  const { produtos, erro, recarregar } = useProdutos();
   const [filtro, setFiltro] = useState<Filtro>("tudo");
 
-  if (!produtos) return null;
+  if (!produtos) return <Carregando erro={erro} tentarDeNovo={recarregar} />;
 
   const produtosFiltrados = (
     filtro === "tudo" ? produtos : produtos.filter((produto) => produto.tipo === filtro)

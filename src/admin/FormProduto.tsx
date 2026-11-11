@@ -2,6 +2,7 @@ import { useState, type ChangeEvent, type FormEvent, type ReactNode } from "reac
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { produtosRepository, type DadosProduto } from "../lib/produtosRepository";
 import { useProdutos } from "../lib/useProdutos";
+import { Carregando } from "../components/Carregando";
 import type { Produto, TipoProduto } from "../types/product";
 import { campo } from "./estilos";
 
@@ -19,6 +20,7 @@ function Formulario({ inicial }: { inicial?: Produto }) {
   const [tipo, setTipo] = useState<TipoProduto>(inicial?.tipo ?? "pronta_entrega");
   const [imagens, setImagens] = useState<string[]>(inicial?.imagens ?? []);
   const [enviando, setEnviando] = useState(false);
+  const [salvando, setSalvando] = useState(false);
   const [erro, setErro] = useState("");
   const sobEncomenda = tipo === "sob_encomenda";
 
@@ -31,7 +33,7 @@ function Formulario({ inicial }: { inicial?: Produto }) {
       const urls = await Promise.all(arquivos.map((a) => produtosRepository.enviarImagem(a)));
       setImagens((atuais) => [...atuais, ...urls]);
     } catch {
-      setErro("Não consegui ler essa imagem. Tente uma foto em JPG ou PNG.");
+      setErro("Não consegui enviar essa imagem. Tente uma foto em JPG ou PNG de até 5 MB, ou confira a internet.");
     } finally {
       setEnviando(false);
     }
@@ -62,11 +64,14 @@ function Formulario({ inicial }: { inicial?: Produto }) {
       cuidados: opc("cuidados"),
       vendido: !sobEncomenda && f.get("vendido") === "on",
     };
+    setSalvando(true);
+    setErro("");
     try {
       await (inicial ? produtosRepository.editar(inicial.id, dados) : produtosRepository.criar(dados));
       navigate("/admin");
     } catch {
-      setErro("Não foi possível salvar: o navegador ficou sem espaço. Remova algumas imagens e tente de novo.");
+      setErro("Não foi possível salvar. Confira a internet ou saia e entre de novo.");
+      setSalvando(false);
     }
   }
 
@@ -157,10 +162,10 @@ function Formulario({ inicial }: { inicial?: Produto }) {
       )}
       <div className="flex gap-3">
         <button
-          disabled={enviando}
+          disabled={enviando || salvando}
           className="flex-1 rounded-token-md bg-wine-700 px-6 py-3 font-semibold text-white hover:bg-wine-900 disabled:opacity-50 sm:flex-none"
         >
-          Salvar
+          {salvando ? "Salvando…" : "Salvar"}
         </button>
         <button
           type="button"
@@ -176,9 +181,9 @@ function Formulario({ inicial }: { inicial?: Produto }) {
 
 export function FormProduto() {
   const { id } = useParams();
-  const { produtos } = useProdutos();
+  const { produtos, erro, recarregar } = useProdutos();
   if (!id) return <Formulario />;
-  if (!produtos) return null;
+  if (!produtos) return <Carregando erro={erro} tentarDeNovo={recarregar} />;
   const produto = produtos.find((p) => p.id === id);
   return produto ? <Formulario key={id} inicial={produto} /> : <Navigate to="/admin" replace />;
 }

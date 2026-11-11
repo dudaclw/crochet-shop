@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import { ProductCard } from "../components/ProductCard";
 import { useProdutos } from "../lib/useProdutos";
+import { Carregando } from "../components/Carregando";
 import { config } from "../data/config";
 
 export function Home() {
-  const { produtos } = useProdutos();
+  const { produtos, erro, recarregar } = useProdutos();
   const destaques = (produtos ?? []).filter((p) => !p.vendido).slice(0, 3);
 
   return (
@@ -47,7 +48,7 @@ export function Home() {
         <a
           href="#destaques"
           aria-label="Rolar para ver mais"
-          className="relative mx-auto mb-8 flex h-11 w-11 animate-bounce items-center justify-center rounded-full bg-white/20 text-white backdrop-blur transition hover:bg-white/30"
+          className="relative mx-auto mb-8 flex h-11 w-11 motion-safe:animate-bounce items-center justify-center rounded-full bg-white/20 text-white backdrop-blur transition hover:bg-white/30"
         >
           <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
             <path
@@ -68,11 +69,19 @@ export function Home() {
             Peças prontas pra levar já e peças sob encomenda, combinadas com calma.
           </p>
         </div>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
-          {destaques.map((produto) => (
-            <ProductCard key={produto.id} produto={produto} />
-          ))}
-        </div>
+        {!produtos ? (
+          <Carregando erro={erro} tentarDeNovo={recarregar} />
+        ) : destaques.length > 0 ? (
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+            {destaques.map((produto) => (
+              <ProductCard key={produto.id} produto={produto} />
+            ))}
+          </div>
+        ) : (
+          <p className="rounded-token-md bg-linen px-6 py-10 text-center text-ink-soft">
+            As peças de pronta entrega saíram todas! Dá uma olhada no catálogo ou me chama pra encomendar.
+          </p>
+        )}
         <Link to="/catalogo" className="font-semibold text-wine-700 hover:underline">
           Ver catálogo completo →
         </Link>

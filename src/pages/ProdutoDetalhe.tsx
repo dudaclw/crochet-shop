@@ -4,6 +4,7 @@ import { PlaceholderImage } from "../components/PlaceholderImage";
 import { TipoBadge } from "../components/TipoBadge";
 import { WhatsAppButton } from "../components/WhatsAppButton";
 import { useProdutos } from "../lib/useProdutos";
+import { Carregando } from "../components/Carregando";
 import { config } from "../data/config";
 import type { Produto } from "../types/product";
 
@@ -32,7 +33,7 @@ function Galeria({ produto }: { produto: Produto }) {
         <div className="flex gap-2 overflow-x-auto">
           {imagens.map((src, i) => (
             <button
-              key={src}
+              key={i}
               type="button"
               onClick={() => setAtual(i)}
               aria-label={`Ver foto ${i + 1} de ${imagens.length}`}
@@ -52,9 +53,9 @@ function Galeria({ produto }: { produto: Produto }) {
 
 export function ProdutoDetalhe() {
   const { slug } = useParams<{ slug: string }>();
-  const { produtos } = useProdutos();
+  const { produtos, erro, recarregar } = useProdutos();
 
-  if (!produtos) return null;
+  if (!produtos) return <Carregando erro={erro} tentarDeNovo={recarregar} />;
 
   const produto = produtos.find((item) => item.slug === slug);
 
@@ -89,6 +90,8 @@ export function ProdutoDetalhe() {
             )}
           </p>
           <p className="text-ink-soft">{produto.descricaoCurta}</p>
+
+          <BlocoInfo titulo="Materiais">{produto.materiais}</BlocoInfo>
 
           {ehSobEncomenda ? (
             <>

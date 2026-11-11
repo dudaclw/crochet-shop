@@ -7,11 +7,11 @@
     <title>Mia's Crochet — crochê feito à mão</title>
     <meta name="description" content="Crochê feito à mão, com tempo e carinho. Peças de pronta entrega e sob encomenda, combinadas pelo WhatsApp." />
     <!-- Prévia de link (WhatsApp/Instagram). Robôs não rodam JS, então vale para todas as páginas.
-         og:image precisa de URL absoluta: troque o domínio quando o site estiver no ar. -->
+         og:image precisa de URL absoluta: vem de VITE_SITE_URL (ver .env.example). -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Mia's Crochet — crochê feito à mão" />
     <meta property="og:description" content="Peças de pronta entrega e sob encomenda, combinadas pelo WhatsApp." />
-    <meta property="og:image" content="https://SEU-DOMINIO/og.jpg" />
+    <meta property="og:image" content="%VITE_SITE_URL%/og.jpg" />
     <meta property="og:locale" content="pt_BR" />
     <meta name="twitter:card" content="summary_large_image" />
   </head>
