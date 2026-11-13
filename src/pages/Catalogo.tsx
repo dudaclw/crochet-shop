@@ -42,10 +42,10 @@ export function Catalogo() {
             type="button"
             onClick={() => setFiltro(item.valor)}
             aria-pressed={filtro === item.valor}
-            className={`min-h-11 rounded-full px-4 py-2 text-sm font-semibold transition ${
+            className={`min-h-11 rounded-full px-4 py-2 text-sm font-semibold toque ${
               filtro === item.valor
                 ? "bg-wine-700 text-white"
-                : "bg-linen text-ink-soft hover:bg-wine-100"
+                : "bg-linen text-ink-soft hover:bg-wine-100 active:bg-wine-100"
             }`}
           >
             {item.rotulo}
@@ -54,7 +54,8 @@ export function Catalogo() {
       </div>
 
       {produtosFiltrados.length > 0 ? (
-        <div className="grid grid-cols-2 gap-x-3 gap-y-6 sm:gap-6 md:grid-cols-3">
+        // key: ao trocar o filtro a grade é recriada e entra com animação
+        <div key={filtro} className="grid grid-cols-2 gap-x-3 gap-y-6 motion-safe:animate-surgir sm:gap-6 md:grid-cols-3">
           {produtosFiltrados.map((produto) => (
             <ProductCard key={produto.id} produto={produto} />
           ))}

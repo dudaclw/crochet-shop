@@ -53,8 +53,8 @@ function Galeria({ produto }: { produto: Produto }) {
               }
               aria-label={`Ver foto ${i + 1} de ${imagens.length}`}
               aria-current={i === atual}
-              className={`h-20 w-16 shrink-0 overflow-hidden rounded-token-sm ring-2 transition ${
-                i === atual ? "ring-wine-700" : "ring-transparent opacity-70 hover:opacity-100"
+              className={`h-20 w-16 shrink-0 overflow-hidden rounded-token-sm ring-2 toque ${
+                i === atual ? "ring-wine-700" : "ring-transparent opacity-70 hover:opacity-100 active:opacity-100"
               }`}
             >
               <img src={src} alt="" loading="lazy" className="h-full w-full object-cover" />
@@ -87,9 +87,9 @@ export function ProdutoDetalhe() {
         <div className="flex flex-col gap-4 md:flex-1">
           <Link
             to="/catalogo"
-            className="w-fit text-sm font-semibold text-ink-soft hover:text-wine-700"
+            className="group w-fit py-2 text-sm font-semibold text-ink-soft hover:text-wine-700 active:text-wine-700 toque"
           >
-            ← Voltar ao catálogo
+            <span aria-hidden="true" className="inline-block transition-transform group-hover:-translate-x-1">←</span> Voltar ao catálogo
           </Link>
           {/* key: volta pra 1ª foto ao trocar de produto */}
           <Galeria key={produto.id} produto={produto} />

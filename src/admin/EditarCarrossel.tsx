@@ -77,7 +77,7 @@ export function EditarCarrossel() {
                 type="button"
                 aria-label={`Remover foto ${i + 1}`}
                 onClick={() => setFotos(fotos.filter((_, j) => j !== i))}
-                className="absolute top-1 right-1 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-lg text-ink shadow-token-soft hover:text-rose-700"
+                className="absolute top-1 right-1 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-lg text-ink shadow-token-soft hover:text-rose-700 active:text-rose-700 toque"
               >
                 ×
               </button>
@@ -106,7 +106,7 @@ export function EditarCarrossel() {
                 disabled={i === 0}
                 onClick={() => mover(i, -1)}
                 aria-label={`Mover foto ${i + 1} para antes`}
-                className="flex-1 rounded-token-sm bg-white py-2 ring-1 ring-line hover:bg-wine-50 disabled:opacity-40"
+                className="flex-1 rounded-token-sm bg-white py-2 ring-1 ring-line hover:bg-wine-50 disabled:opacity-40 active:bg-wine-50 toque"
               >
                 ←
               </button>
@@ -115,7 +115,7 @@ export function EditarCarrossel() {
                 disabled={i === fotos.length - 1}
                 onClick={() => mover(i, 1)}
                 aria-label={`Mover foto ${i + 1} para depois`}
-                className="flex-1 rounded-token-sm bg-white py-2 ring-1 ring-line hover:bg-wine-50 disabled:opacity-40"
+                className="flex-1 rounded-token-sm bg-white py-2 ring-1 ring-line hover:bg-wine-50 disabled:opacity-40 active:bg-wine-50 toque"
               >
                 →
               </button>
@@ -143,14 +143,14 @@ export function EditarCarrossel() {
           type="button"
           onClick={salvar}
           disabled={enviando || salvando}
-          className="flex-1 rounded-token-md bg-wine-700 px-6 py-3 font-semibold text-white hover:bg-wine-900 disabled:opacity-50 sm:flex-none"
+          className="flex-1 rounded-token-md bg-wine-700 px-6 py-3 font-semibold text-white hover:bg-wine-900 disabled:opacity-50 sm:flex-none active:bg-wine-900 toque"
         >
           {salvando ? "Salvando…" : "Salvar"}
         </button>
         <button
           type="button"
           onClick={() => navigate("/admin")}
-          className="flex-1 rounded-token-md bg-white px-6 py-3 font-semibold ring-1 ring-line hover:bg-wine-50 sm:flex-none"
+          className="flex-1 rounded-token-md bg-white px-6 py-3 font-semibold ring-1 ring-line hover:bg-wine-50 sm:flex-none active:bg-wine-50 toque"
         >
           Cancelar
         </button>

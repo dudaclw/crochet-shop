@@ -26,7 +26,7 @@ export function ListaProdutos() {
         <h1 className="text-2xl">Produtos</h1>
         <Link
           to="/admin/novo"
-          className="rounded-token-md bg-wine-700 px-5 py-2.5 text-sm font-semibold text-white hover:bg-wine-900"
+          className="rounded-token-md bg-wine-700 px-5 py-2.5 text-sm font-semibold text-white hover:bg-wine-900 active:bg-wine-900 toque"
         >
           + Novo produto
         </Link>
@@ -50,14 +50,14 @@ export function ListaProdutos() {
             <div className="flex gap-2 text-sm font-semibold">
               <Link
                 to={`/admin/${p.id}`}
-                className="flex-1 rounded-token-sm bg-white px-4 py-2.5 text-center ring-1 ring-line hover:bg-wine-50 sm:flex-none"
+                className="flex-1 rounded-token-sm bg-white px-4 py-2.5 text-center ring-1 ring-line hover:bg-wine-50 sm:flex-none active:bg-wine-50 toque"
               >
                 Editar
               </Link>
               <button
                 type="button"
                 onClick={() => excluir(p.id, p.nome)}
-                className="flex-1 rounded-token-sm bg-white px-4 py-2.5 text-rose-700 ring-1 ring-line hover:bg-rose-50 sm:flex-none"
+                className="flex-1 rounded-token-sm bg-white px-4 py-2.5 text-rose-700 ring-1 ring-line hover:bg-rose-50 sm:flex-none active:bg-rose-50 toque"
               >
                 Excluir
               </button>

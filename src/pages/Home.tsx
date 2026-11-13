@@ -66,7 +66,7 @@ function CarrosselHero() {
               onClick={() => setAtual(i)}
               aria-label={`Mostrar foto ${i + 1} de ${fotos.length}`}
               aria-current={i === visivel}
-              className="flex h-9 w-7 items-center justify-center"
+              className="flex h-9 w-7 items-center justify-center toque"
             >
               <span
                 className={`h-2 rounded-full bg-white transition-all ${i === visivel ? "w-5" : "w-2 opacity-60"}`}
@@ -77,7 +77,7 @@ function CarrosselHero() {
             type="button"
             onClick={() => setPausado((p) => !p)}
             aria-label={pausado ? "Retomar troca automática das fotos" : "Pausar troca automática das fotos"}
-            className="flex h-9 w-9 items-center justify-center text-white"
+            className="flex h-9 w-9 items-center justify-center rounded-full text-white active:bg-white/20 toque"
           >
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-3.5 w-3.5">
               {pausado ? <path d="M8 5v14l11-7z" /> : <path d="M7 5h3v14H7zM14 5h3v14h-3z" />}
@@ -117,7 +117,7 @@ export function Home() {
           </p>
           <Link
             to="/catalogo"
-            className="inline-flex items-center justify-center rounded-token-md bg-wine-700 px-7 py-3.5 font-semibold text-white shadow-token-soft transition hover:bg-wine-900"
+            className="inline-flex items-center justify-center rounded-token-md bg-wine-700 px-7 py-3.5 font-semibold text-white shadow-token-soft hover:bg-wine-900 active:bg-wine-900 toque"
           >
             Ver o que tem no ateliê
           </Link>
@@ -131,7 +131,7 @@ export function Home() {
             const suave = !matchMedia("(prefers-reduced-motion: reduce)").matches;
             document.getElementById("destaques")?.scrollIntoView({ behavior: suave ? "smooth" : "auto" });
           }}
-          className="relative mx-auto mb-8 flex h-11 w-11 motion-safe:animate-bounce items-center justify-center rounded-full bg-white/20 text-white backdrop-blur transition hover:bg-white/30"
+          className="relative mx-auto mb-8 flex h-11 w-11 motion-safe:animate-bounce items-center justify-center rounded-full bg-white/20 text-white backdrop-blur hover:bg-white/30 active:bg-white/30 toque"
         >
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-5 w-5">
             <path
@@ -165,8 +165,9 @@ export function Home() {
             As peças de pronta entrega saíram todas! Dá uma olhada no catálogo ou me chama pra encomendar.
           </p>
         )}
-        <Link to="/catalogo" className="w-fit py-2 font-semibold text-wine-700 hover:underline">
-          Ver catálogo completo →
+        <Link to="/catalogo" className="group w-fit py-2 font-semibold text-wine-700 hover:underline active:underline toque">
+          Ver catálogo completo{" "}
+          <span aria-hidden="true" className="inline-block transition-transform group-hover:translate-x-1">→</span>
         </Link>
       </section>
     </div>

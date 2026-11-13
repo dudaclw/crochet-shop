@@ -31,7 +31,7 @@ export function AdicionarFotos({
 
   return (
     <label
-      className={`flex cursor-pointer flex-col items-center justify-center gap-1 rounded-token-sm border-2 border-dashed border-line bg-white text-sm text-ink-soft hover:border-wine-300 focus-within:border-wine-500 ${className}`}
+      className={`flex cursor-pointer flex-col items-center justify-center gap-1 rounded-token-sm border-2 border-dashed border-line bg-white text-sm text-ink-soft hover:border-wine-300 focus-within:border-wine-500 active:border-wine-300 toque ${className}`}
     >
       <span className="text-2xl leading-none">+</span>
       {enviando ? "Enviando…" : "Adicionar foto"}

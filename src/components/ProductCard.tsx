@@ -8,7 +8,7 @@ export function ProductCard({ produto }: { produto: Produto }) {
   return (
     <Link
       to={`/catalogo/${produto.slug}`}
-      className="group flex flex-col gap-3 rounded-token-lg p-1 transition hover:bg-linen sm:p-2"
+      className="group flex flex-col gap-3 rounded-token-lg p-1 hover:bg-linen sm:p-2 active:bg-linen toque"
     >
       <div className="relative">
         <PlaceholderImage
@@ -33,7 +33,7 @@ export function ProductCard({ produto }: { produto: Produto }) {
         {produto.tipo === "sob_encomenda" && produto.prazoProducao && (
           <p className="text-sm text-ink-soft">Prazo: {produto.prazoProducao}</p>
         )}
-        <span className="mt-2 text-sm font-semibold text-wine-700 group-hover:underline">
+        <span className="mt-2 text-sm font-semibold text-wine-700 group-hover:underline group-active:underline">
           Ver detalhes
         </span>
       </div>

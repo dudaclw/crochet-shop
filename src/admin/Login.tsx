@@ -46,7 +46,7 @@ export function Login() {
       )}
       <button
         disabled={entrando}
-        className="rounded-token-md bg-wine-700 px-6 py-3 font-semibold text-white hover:bg-wine-900 disabled:opacity-50"
+        className="rounded-token-md bg-wine-700 px-6 py-3 font-semibold text-white hover:bg-wine-900 disabled:opacity-50 active:bg-wine-900 toque"
       >
         {entrando ? "Entrando…" : "Entrar"}
       </button>

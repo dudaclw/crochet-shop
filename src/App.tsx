@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { createBrowserRouter, Navigate, Outlet, RouterProvider, ScrollRestoration } from "react-router-dom";
+import { createBrowserRouter, Navigate, Outlet, RouterProvider, ScrollRestoration, useLocation } from "react-router-dom";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { Home } from "./pages/Home";
@@ -11,6 +11,7 @@ import { Sobre } from "./pages/Sobre";
 const Admin = lazy(() => import("./admin/Admin"));
 
 function Layout() {
+  const { pathname } = useLocation();
   return (
     <div className="flex min-h-svh flex-col font-body">
       {/* abrir uma peça começa no topo; "voltar" devolve à mesma altura da lista */}
@@ -22,7 +23,8 @@ function Layout() {
         Pular para o conteúdo
       </a>
       <Header />
-      <main id="conteudo" className="flex-1">
+      {/* key: cada página nova entra com um fade curto (só opacidade, não mexe no layout) */}
+      <main key={pathname} id="conteudo" className="flex-1 motion-safe:animate-aparecer">
         <Outlet />
       </main>
       <Footer />

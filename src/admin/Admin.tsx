@@ -24,10 +24,10 @@ function RequireAdmin() {
             Admin
           </Link>
           <div className="flex items-center gap-1">
-            <Link to="/admin/carrossel" className="px-2 py-2.5 hover:underline">
+            <Link to="/admin/carrossel" className="px-2 py-2.5 hover:underline active:underline toque">
               Carrossel
             </Link>
-            <Link to="/" className="px-2 py-2.5 hover:underline">
+            <Link to="/" className="px-2 py-2.5 hover:underline active:underline toque">
               Ver loja
             </Link>
             <button
@@ -36,7 +36,7 @@ function RequireAdmin() {
                 await authService.logout();
                 navigate("/admin/login");
               }}
-              className="px-2 py-2.5 font-semibold hover:underline"
+              className="px-2 py-2.5 font-semibold hover:underline active:underline toque"
             >
               Sair
             </button>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { config } from "../data/config";
 
@@ -9,12 +9,22 @@ const links = [
 ];
 
 const linkClasses = ({ isActive }: { isActive: boolean }) =>
-  `text-base transition hover:text-wine-700 ${
+  `text-base hover:text-wine-700 active:text-wine-700 toque ${
     isActive ? "font-semibold text-wine-700" : "text-ink"
   }`;
 
+// as 3 listrinhas viram um X: as de fora giram até o meio, a do meio encolhe e some
+const listra = "h-0.5 w-6 rounded-full bg-ink transition duration-300 ease-out motion-reduce:transition-none";
+
 export function Header() {
   const [menuAberto, setMenuAberto] = useState(false);
+
+  useEffect(() => {
+    if (!menuAberto) return;
+    const fecharNoEsc = (e: KeyboardEvent) => e.key === "Escape" && setMenuAberto(false);
+    addEventListener("keydown", fecharNoEsc);
+    return () => removeEventListener("keydown", fecharNoEsc);
+  }, [menuAberto]);
 
   return (
     <>
@@ -27,7 +37,7 @@ export function Header() {
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-2 md:py-4">
           <NavLink
             to="/"
-            className="flex items-center gap-3"
+            className="flex items-center gap-3 toque"
             onClick={() => setMenuAberto(false)}
           >
             <img src={config.logoPlaceholder} alt="" className="h-10 w-10" />
@@ -48,41 +58,46 @@ export function Header() {
             aria-expanded={menuAberto}
             aria-controls="menu-celular"
             onClick={() => setMenuAberto((aberto) => !aberto)}
-            className="flex h-12 w-12 flex-col items-center justify-center gap-1.5 md:hidden"
+            className="flex h-12 w-12 flex-col items-center justify-center gap-1.5 rounded-full active:bg-wine-100 toque md:hidden"
           >
-            <span
-              className={`h-0.5 w-6 bg-ink transition ${menuAberto ? "translate-y-2 rotate-45" : ""}`}
-            />
-            <span className={`h-0.5 w-6 bg-ink transition ${menuAberto ? "opacity-0" : ""}`} />
-            <span
-              className={`h-0.5 w-6 bg-ink transition ${menuAberto ? "-translate-y-2 -rotate-45" : ""}`}
-            />
+            <span className={`${listra} ${menuAberto ? "translate-y-2 rotate-45" : ""}`} />
+            <span className={`${listra} ${menuAberto ? "scale-x-0 opacity-0" : ""}`} />
+            <span className={`${listra} ${menuAberto ? "-translate-y-2 -rotate-45" : ""}`} />
           </button>
         </div>
 
-        {menuAberto && (
+        {/* sempre no DOM para animar: a altura vai de 0 ao conteúdo (grid 0fr → 1fr); fechado fica inert */}
+        <div
+          className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out motion-reduce:transition-none md:hidden ${
+            menuAberto ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+          }`}
+        >
           <nav
             id="menu-celular"
             aria-label="Principal"
-            className="flex flex-col gap-1 border-t border-line px-5 py-4 md:hidden"
+            inert={!menuAberto}
+            className="flex min-h-0 flex-col gap-1 overflow-hidden px-5"
           >
-            {links.map((link) => (
+            <div className="mb-2 border-t border-line" />
+            {links.map((link, i) => (
               <NavLink
                 key={link.to}
                 to={link.to}
                 end={link.to === "/"}
                 onClick={() => setMenuAberto(false)}
+                // links entram um após o outro ao abrir
+                style={{ transitionDelay: menuAberto ? `${60 + i * 50}ms` : "0ms" }}
                 className={({ isActive }) =>
-                  `rounded-token-sm px-3 py-3 text-base ${
-                    isActive ? "bg-wine-100 font-semibold text-wine-700" : "text-ink"
-                  }`
+                  `rounded-token-sm px-3 py-3 text-base transition duration-300 ease-out motion-reduce:transition-none last:mb-4 active:bg-wine-100 ${
+                    menuAberto ? "translate-y-0 opacity-100" : "-translate-y-2 opacity-0"
+                  } ${isActive ? "bg-wine-100 font-semibold text-wine-700" : "text-ink"}`
                 }
               >
                 {link.label}
               </NavLink>
             ))}
           </nav>
-        )}
+        </div>
       </header>
     </>
   );
