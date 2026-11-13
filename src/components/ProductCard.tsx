@@ -2,17 +2,13 @@ import { Link } from "react-router-dom";
 import type { Produto } from "../types/product";
 import { PlaceholderImage } from "./PlaceholderImage";
 import { TipoBadge } from "./TipoBadge";
-
-const formatoPreco = new Intl.NumberFormat("pt-BR", {
-  style: "currency",
-  currency: "BRL",
-});
+import { formatoPreco } from "../lib/preco";
 
 export function ProductCard({ produto }: { produto: Produto }) {
   return (
     <Link
       to={`/catalogo/${produto.slug}`}
-      className="group flex flex-col gap-3 rounded-token-lg p-2 transition hover:bg-linen"
+      className="group flex flex-col gap-3 rounded-token-lg p-1 transition hover:bg-linen sm:p-2"
     >
       <div className="relative">
         <PlaceholderImage
@@ -21,13 +17,13 @@ export function ProductCard({ produto }: { produto: Produto }) {
           aspect="aspect-[4/5]"
           className={`transition duration-300 group-hover:scale-[1.02] ${produto.vendido ? "opacity-60 grayscale" : ""}`}
         />
-        <div className="absolute left-3 top-3">
+        <div className="absolute top-2 left-2 sm:top-3 sm:left-3">
           <TipoBadge tipo={produto.tipo} vendido={produto.vendido} />
         </div>
       </div>
 
       <div className="flex flex-col gap-1 px-1">
-        <h3 className="text-lg text-ink">{produto.nome}</h3>
+        <h3 className="text-base text-ink sm:text-lg">{produto.nome}</h3>
         <p className="text-ink">
           {formatoPreco.format(produto.preco)}
           {produto.notaPreco && (

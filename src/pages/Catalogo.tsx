@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { ProductCard } from "../components/ProductCard";
 import { useProdutos } from "../lib/useProdutos";
 import { Carregando } from "../components/Carregando";
@@ -15,7 +15,11 @@ const filtros: { valor: Filtro; rotulo: string }[] = [
 
 export function Catalogo() {
   const { produtos, erro, recarregar } = useProdutos();
-  const [filtro, setFiltro] = useState<Filtro>("tudo");
+  // filtro na URL: sobrevive ao "voltar" depois de abrir uma peça e pode ser compartilhado
+  const [params, setParams] = useSearchParams();
+  const filtro = filtros.find((f) => f.valor === params.get("tipo"))?.valor ?? "tudo";
+  const setFiltro = (valor: Filtro) =>
+    setParams(valor === "tudo" ? {} : { tipo: valor }, { replace: true, preventScrollReset: true });
 
   if (!produtos) return <Carregando erro={erro} tentarDeNovo={recarregar} />;
 
@@ -38,7 +42,7 @@ export function Catalogo() {
             type="button"
             onClick={() => setFiltro(item.valor)}
             aria-pressed={filtro === item.valor}
-            className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+            className={`min-h-11 rounded-full px-4 py-2 text-sm font-semibold transition ${
               filtro === item.valor
                 ? "bg-wine-700 text-white"
                 : "bg-linen text-ink-soft hover:bg-wine-100"
@@ -50,7 +54,7 @@ export function Catalogo() {
       </div>
 
       {produtosFiltrados.length > 0 ? (
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+        <div className="grid grid-cols-2 gap-x-3 gap-y-6 sm:gap-6 md:grid-cols-3">
           {produtosFiltrados.map((produto) => (
             <ProductCard key={produto.id} produto={produto} />
           ))}

@@ -6,10 +6,10 @@ import { config } from "../data/config";
 
 export function Home() {
   const { produtos, erro, recarregar } = useProdutos();
-  const destaques = (produtos ?? []).filter((p) => !p.vendido).slice(0, 3);
+  const destaques = (produtos ?? []).filter((p) => !p.vendido).slice(0, 4);
 
   return (
-    <div className="flex flex-col gap-20 pb-20">
+    <div className="flex flex-col gap-14 pb-14 md:gap-20 md:pb-20">
       <title>{`${config.nomeAtelie} — crochê feito à mão`}</title>
       {/*
         Ocupa quase a tela inteira pra dar a sensação de que tem mais
@@ -20,7 +20,7 @@ export function Home() {
         placeholder atual; a ideia futura é essa área virar uma foto em alta
         resolução ou um vídeo curto em loop no lugar da imagem estática.
       */}
-      <section className="relative flex min-h-[calc(100vh-170px)] flex-col overflow-hidden">
+      <section className="relative flex min-h-[calc(100svh-170px)] flex-col overflow-hidden">
         <img
           src="/placeholders/hero.svg"
           alt="Peças de crochê do ateliê"
@@ -48,9 +48,14 @@ export function Home() {
         <a
           href="#destaques"
           aria-label="Rolar para ver mais"
+          onClick={(e) => {
+            e.preventDefault();
+            const suave = !matchMedia("(prefers-reduced-motion: reduce)").matches;
+            document.getElementById("destaques")?.scrollIntoView({ behavior: suave ? "smooth" : "auto" });
+          }}
           className="relative mx-auto mb-8 flex h-11 w-11 motion-safe:animate-bounce items-center justify-center rounded-full bg-white/20 text-white backdrop-blur transition hover:bg-white/30"
         >
-          <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-5 w-5">
             <path
               d="M6 9l6 6 6-6"
               stroke="currentColor"
@@ -72,7 +77,7 @@ export function Home() {
         {!produtos ? (
           <Carregando erro={erro} tentarDeNovo={recarregar} />
         ) : destaques.length > 0 ? (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+          <div className="grid grid-cols-2 gap-x-3 gap-y-6 sm:gap-6 md:grid-cols-4">
             {destaques.map((produto) => (
               <ProductCard key={produto.id} produto={produto} />
             ))}
@@ -82,7 +87,7 @@ export function Home() {
             As peças de pronta entrega saíram todas! Dá uma olhada no catálogo ou me chama pra encomendar.
           </p>
         )}
-        <Link to="/catalogo" className="font-semibold text-wine-700 hover:underline">
+        <Link to="/catalogo" className="w-fit py-2 font-semibold text-wine-700 hover:underline">
           Ver catálogo completo →
         </Link>
       </section>

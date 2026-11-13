@@ -2,12 +2,10 @@ import { supabase } from "./supabase";
 import type { Produto } from "../types/product";
 
 /**
- * Única porta de entrada para os produtos (vitrine e admin). Leitura é pública;
- * escrita só passa para quem está em `public.admins` (RLS em supabase/schema.sql).
+ * Escrita dos produtos (só admin). Só passa para quem está em `public.admins`
+ * (RLS em supabase/schema.sql). A leitura pública fica em vitrine.ts, sem supabase-js.
  */
 const BUCKET = "imagens";
-const COLUNAS =
-  'id, slug, nome, tipo, preco, "notaPreco", "prazoProducao", "personalizavelEm", imagens, "descricaoCurta", materiais, tamanho, cuidados, vendido';
 
 export type DadosProduto = Omit<Produto, "id" | "slug">;
 
@@ -29,12 +27,6 @@ async function removerArquivos(urls: string[]) {
 }
 
 export const produtosRepository = {
-  async listar(): Promise<Produto[]> {
-    const { data, error } = await supabase.from("produtos").select(COLUNAS).order("criadoEm");
-    if (error) throw error;
-    return data as Produto[];
-  },
-
   async criar(dados: DadosProduto) {
     const base = slugify(dados.nome) || "produto";
     const { data, error } = await supabase.from("produtos").select("slug").like("slug", `${base}%`);

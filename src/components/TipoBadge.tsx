@@ -6,8 +6,8 @@ const rotulos: Record<TipoProduto, string> = {
 };
 
 const estilos: Record<TipoProduto, string> = {
-  pronta_entrega: "bg-pistachio-100 text-pistachio-700",
-  sob_encomenda: "bg-rose-100 text-rose-700",
+  pronta_entrega: "bg-pistachio-100 text-pistachio-900",
+  sob_encomenda: "bg-rose-100 text-wine-700",
 };
 
 export function TipoBadge({ tipo, vendido }: { tipo: TipoProduto; vendido?: boolean }) {

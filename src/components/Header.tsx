@@ -17,65 +17,73 @@ export function Header() {
   const [menuAberto, setMenuAberto] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-cream/95 backdrop-blur">
-      <div className="bg-wine-900 px-5 py-1.5 text-center text-[10px] font-semibold tracking-wide text-cream uppercase">
+    <>
+      {/* fora do header fixo: no celular a faixa some ao rolar e sobra mais tela pro conteúdo */}
+      <div className="bg-wine-900 px-5 py-1.5 text-center text-xs font-semibold tracking-wide text-cream">
         Feito à mão, em pequenos lotes · combinamos tudo pelo WhatsApp
       </div>
 
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4">
-        <NavLink
-          to="/"
-          className="flex items-center gap-3"
-          onClick={() => setMenuAberto(false)}
-        >
-          <img src={config.logoPlaceholder} alt="" className="h-10 w-10" />
-          <span className="font-display text-lg text-ink">{config.nomeAtelie}</span>
-        </NavLink>
+      <header className="sticky top-0 z-40 border-b border-line bg-cream/95 backdrop-blur">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-2 md:py-4">
+          <NavLink
+            to="/"
+            className="flex items-center gap-3"
+            onClick={() => setMenuAberto(false)}
+          >
+            <img src={config.logoPlaceholder} alt="" className="h-10 w-10" />
+            <span className="font-display text-lg text-ink">{config.nomeAtelie}</span>
+          </NavLink>
 
-        <nav className="hidden items-center gap-8 md:flex">
-          {links.map((link) => (
-            <NavLink key={link.to} to={link.to} end={link.to === "/"} className={linkClasses}>
-              {link.label}
-            </NavLink>
-          ))}
-        </nav>
+          <nav aria-label="Principal" className="hidden items-center gap-8 md:flex">
+            {links.map((link) => (
+              <NavLink key={link.to} to={link.to} end={link.to === "/"} className={linkClasses}>
+                {link.label}
+              </NavLink>
+            ))}
+          </nav>
 
-        <button
-          type="button"
-          aria-label={menuAberto ? "Fechar menu" : "Abrir menu"}
-          aria-expanded={menuAberto}
-          onClick={() => setMenuAberto((aberto) => !aberto)}
-          className="flex h-12 w-12 flex-col items-center justify-center gap-1.5 md:hidden"
-        >
-          <span
-            className={`h-0.5 w-6 bg-ink transition ${menuAberto ? "translate-y-2 rotate-45" : ""}`}
-          />
-          <span className={`h-0.5 w-6 bg-ink transition ${menuAberto ? "opacity-0" : ""}`} />
-          <span
-            className={`h-0.5 w-6 bg-ink transition ${menuAberto ? "-translate-y-2 -rotate-45" : ""}`}
-          />
-        </button>
-      </div>
+          <button
+            type="button"
+            aria-label={menuAberto ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={menuAberto}
+            aria-controls="menu-celular"
+            onClick={() => setMenuAberto((aberto) => !aberto)}
+            className="flex h-12 w-12 flex-col items-center justify-center gap-1.5 md:hidden"
+          >
+            <span
+              className={`h-0.5 w-6 bg-ink transition ${menuAberto ? "translate-y-2 rotate-45" : ""}`}
+            />
+            <span className={`h-0.5 w-6 bg-ink transition ${menuAberto ? "opacity-0" : ""}`} />
+            <span
+              className={`h-0.5 w-6 bg-ink transition ${menuAberto ? "-translate-y-2 -rotate-45" : ""}`}
+            />
+          </button>
+        </div>
 
-      {menuAberto && (
-        <nav className="flex flex-col gap-1 border-t border-line px-5 py-4 md:hidden">
-          {links.map((link) => (
-            <NavLink
-              key={link.to}
-              to={link.to}
-              end={link.to === "/"}
-              onClick={() => setMenuAberto(false)}
-              className={({ isActive }) =>
-                `rounded-token-sm px-3 py-2.5 text-base ${
-                  isActive ? "bg-wine-100 font-semibold text-wine-700" : "text-ink"
-                }`
-              }
-            >
-              {link.label}
-            </NavLink>
-          ))}
-        </nav>
-      )}
-    </header>
+        {menuAberto && (
+          <nav
+            id="menu-celular"
+            aria-label="Principal"
+            className="flex flex-col gap-1 border-t border-line px-5 py-4 md:hidden"
+          >
+            {links.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                end={link.to === "/"}
+                onClick={() => setMenuAberto(false)}
+                className={({ isActive }) =>
+                  `rounded-token-sm px-3 py-3 text-base ${
+                    isActive ? "bg-wine-100 font-semibold text-wine-700" : "text-ink"
+                  }`
+                }
+              >
+                {link.label}
+              </NavLink>
+            ))}
+          </nav>
+        )}
+      </header>
+    </>
   );
 }

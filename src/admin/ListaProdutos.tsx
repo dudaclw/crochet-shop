@@ -3,8 +3,7 @@ import { Carregando } from "../components/Carregando";
 import { TipoBadge } from "../components/TipoBadge";
 import { produtosRepository } from "../lib/produtosRepository";
 import { useProdutos } from "../lib/useProdutos";
-
-const formatoPreco = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
+import { formatoPreco } from "../lib/preco";
 
 export function ListaProdutos() {
   const { produtos, erro, recarregar } = useProdutos();
@@ -51,14 +50,14 @@ export function ListaProdutos() {
             <div className="flex gap-2 text-sm font-semibold">
               <Link
                 to={`/admin/${p.id}`}
-                className="flex-1 rounded-token-sm bg-white px-4 py-2 text-center ring-1 ring-line hover:bg-wine-50 sm:flex-none"
+                className="flex-1 rounded-token-sm bg-white px-4 py-2.5 text-center ring-1 ring-line hover:bg-wine-50 sm:flex-none"
               >
                 Editar
               </Link>
               <button
                 type="button"
                 onClick={() => excluir(p.id, p.nome)}
-                className="flex-1 rounded-token-sm bg-white px-4 py-2 text-rose-700 ring-1 ring-line hover:bg-rose-50 sm:flex-none"
+                className="flex-1 rounded-token-sm bg-white px-4 py-2.5 text-rose-700 ring-1 ring-line hover:bg-rose-50 sm:flex-none"
               >
                 Excluir
               </button>

@@ -22,8 +22,8 @@ function RequireAdmin() {
           <Link to="/admin" className="font-display text-lg">
             Admin
           </Link>
-          <div className="flex items-center gap-5">
-            <Link to="/" className="hover:underline">
+          <div className="flex items-center gap-2">
+            <Link to="/" className="px-2 py-2.5 hover:underline">
               Ver loja
             </Link>
             <button
@@ -32,7 +32,7 @@ function RequireAdmin() {
                 await authService.logout();
                 navigate("/admin/login");
               }}
-              className="font-semibold hover:underline"
+              className="px-2 py-2.5 font-semibold hover:underline"
             >
               Sair
             </button>

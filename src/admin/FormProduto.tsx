@@ -123,7 +123,7 @@ function Formulario({ inicial }: { inicial?: Produto }) {
                 type="button"
                 aria-label={`Remover imagem ${i + 1}`}
                 onClick={() => setImagens((atuais) => atuais.filter((_, j) => j !== i))}
-                className="absolute top-1 right-1 flex h-7 w-7 items-center justify-center rounded-full bg-white/90 text-ink shadow-token-soft hover:text-rose-700"
+                className="absolute top-1 right-1 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-lg text-ink shadow-token-soft hover:text-rose-700"
               >
                 ×
               </button>
