@@ -1,10 +1,11 @@
-import { useState, type ChangeEvent, type FormEvent, type ReactNode } from "react";
+import { useState, type FormEvent, type ReactNode } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { produtosRepository, type DadosProduto } from "../lib/produtosRepository";
 import { useProdutos } from "../lib/useProdutos";
 import { Carregando } from "../components/Carregando";
 import type { Produto, TipoProduto } from "../types/product";
 import { campo } from "./estilos";
+import { AdicionarFotos } from "./AdicionarFotos";
 
 function Campo({ rotulo, children, className = "" }: { rotulo: string; children: ReactNode; className?: string }) {
   return (
@@ -23,21 +24,6 @@ function Formulario({ inicial }: { inicial?: Produto }) {
   const [salvando, setSalvando] = useState(false);
   const [erro, setErro] = useState("");
   const sobEncomenda = tipo === "sob_encomenda";
-
-  async function adicionarImagens(e: ChangeEvent<HTMLInputElement>) {
-    const arquivos = [...(e.target.files ?? [])];
-    e.target.value = ""; // permite escolher o mesmo arquivo de novo
-    setEnviando(true);
-    setErro("");
-    try {
-      const urls = await Promise.all(arquivos.map((a) => produtosRepository.enviarImagem(a)));
-      setImagens((atuais) => [...atuais, ...urls]);
-    } catch {
-      setErro("Não consegui enviar essa imagem. Tente uma foto em JPG ou PNG de até 5 MB, ou confira a internet.");
-    } finally {
-      setEnviando(false);
-    }
-  }
 
   async function salvar(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -129,11 +115,13 @@ function Formulario({ inicial }: { inicial?: Produto }) {
               </button>
             </div>
           ))}
-          <label className="flex aspect-[4/5] cursor-pointer flex-col items-center justify-center gap-1 rounded-token-sm border-2 border-dashed border-line bg-white text-sm text-ink-soft hover:border-wine-300 focus-within:border-wine-500">
-            <span className="text-2xl leading-none">+</span>
-            {enviando ? "Enviando…" : "Adicionar foto"}
-            <input type="file" accept="image/*" multiple onChange={adicionarImagens} className="sr-only" />
-          </label>
+          <AdicionarFotos
+            enviando={enviando}
+            setEnviando={setEnviando}
+            setErro={setErro}
+            onEnviadas={(urls) => setImagens((atuais) => [...atuais, ...urls])}
+            className="aspect-[4/5]"
+          />
         </div>
       </fieldset>
 

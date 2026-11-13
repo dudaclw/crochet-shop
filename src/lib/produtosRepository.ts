@@ -1,8 +1,9 @@
 import { supabase } from "./supabase";
 import type { Produto } from "../types/product";
+import type { FotoCarrossel } from "./vitrine";
 
 /**
- * Escrita dos produtos (só admin). Só passa para quem está em `public.admins`
+ * Escrita dos produtos e do carrossel (só admin). Só passa para quem está em `public.admins`
  * (RLS em supabase/schema.sql). A leitura pública fica em vitrine.ts, sem supabase-js.
  */
 const BUCKET = "imagens";
@@ -52,6 +53,17 @@ export const produtosRepository = {
     if (error) throw error;
     if (!data.length) throw new Error("Nada foi excluído (sessão expirada?)");
     await removerArquivos(data[0].imagens);
+  },
+
+  async salvarCarrossel(fotos: FotoCarrossel[]) {
+    const { data: antes } = await supabase.from("carrossel").select("fotos").eq("id", 1).single();
+    const { data, error } = await supabase.from("carrossel").update({ fotos }).eq("id", 1).select("id");
+    if (error) throw error;
+    if (!data.length) throw new Error("Nada foi salvo (sessão expirada?)");
+    const mantidas = fotos.map((f) => f.url);
+    if (antes) {
+      await removerArquivos((antes.fotos as FotoCarrossel[]).map((f) => f.url).filter((u) => !mantidas.includes(u)));
+    }
   },
 
   /**

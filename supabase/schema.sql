@@ -51,6 +51,28 @@ drop policy if exists "admin exclui" on public.produtos;
 create policy "admin exclui" on public.produtos for delete to authenticated
   using (public.is_admin());
 
+-- Carrossel do topo da Home: uma linha só (id = 1), editada em /admin/carrossel.
+-- fotos = [{ "url": "...", "foco": 0–100 }]; foco é a posição horizontal que fica visível
+-- quando a tela do celular corta as laterais da foto (50 = centro).
+-- A linha já nasce aqui, então o admin só precisa de UPDATE (sem insert/delete pela API).
+create table if not exists public.carrossel (
+  id int primary key default 1 check (id = 1),
+  fotos jsonb not null default '[]' check (jsonb_typeof(fotos) = 'array')
+);
+alter table public.carrossel enable row level security;
+
+drop policy if exists "vitrine le carrossel" on public.carrossel;
+create policy "vitrine le carrossel" on public.carrossel for select using (true);
+drop policy if exists "admin edita carrossel" on public.carrossel;
+create policy "admin edita carrossel" on public.carrossel for update to authenticated
+  using (public.is_admin()) with check (public.is_admin());
+
+insert into public.carrossel (id, fotos) values (1, '[
+  { "url": "/produtos/amigurumi-coelho-laco-preto.webp", "foco": 50 },
+  { "url": "/produtos/buque-de-tulipas-croche.webp", "foco": 15 },
+  { "url": "/produtos/kit-panos-de-prato-xadrez.webp", "foco": 50 }
+]') on conflict (id) do nothing;
+
 -- Fotos: bucket público para leitura por URL; upload/remoção só admin.
 -- Limite de 5 MB e só imagens, mesmo para admin (conta invadida não vira hospedagem de arquivo).
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)

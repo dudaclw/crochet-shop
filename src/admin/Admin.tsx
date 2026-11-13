@@ -3,6 +3,7 @@ import { Link, Navigate, Outlet, Route, Routes, useNavigate } from "react-router
 import { authService } from "../lib/authService";
 import { FormProduto } from "./FormProduto";
 import { ListaProdutos } from "./ListaProdutos";
+import { EditarCarrossel } from "./EditarCarrossel";
 import { Login } from "./Login";
 
 function RequireAdmin() {
@@ -22,7 +23,10 @@ function RequireAdmin() {
           <Link to="/admin" className="font-display text-lg">
             Admin
           </Link>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
+            <Link to="/admin/carrossel" className="px-2 py-2.5 hover:underline">
+              Carrossel
+            </Link>
             <Link to="/" className="px-2 py-2.5 hover:underline">
               Ver loja
             </Link>
@@ -61,6 +65,7 @@ export default function Admin() {
         <Route element={<RequireAdmin />}>
           <Route index element={<ListaProdutos />} />
           <Route path="novo" element={<FormProduto />} />
+          <Route path="carrossel" element={<EditarCarrossel />} />
           <Route path=":id" element={<FormProduto />} />
         </Route>
       </Route>
